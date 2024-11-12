@@ -44,7 +44,7 @@ public class GameController {
 
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public String handleRuntimeException(GameNotFoundException ex) {
+    public String handleRuntimeException(RuntimeException  ex) {
         return "Erro interno do servidor: " + ex.getMessage();
     }
 }
