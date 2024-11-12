@@ -1,19 +1,17 @@
-package entities;
+package com.mrp.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Objects;
 
+@Setter
+@Getter
 @Entity
-@Data
 @Builder
 @Table(name = "tb_game")
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class Game {
 
     @Id
@@ -34,7 +32,6 @@ public class Game {
     @Column(columnDefinition = "TEXT")
     private String longDescription;
 
-
     @Override
     public int hashCode() {
         return Objects.hash(id);
@@ -51,5 +48,4 @@ public class Game {
         Game other = (Game) obj;
         return Objects.equals(id, other.id);
     }
-
 }
