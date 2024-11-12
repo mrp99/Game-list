@@ -1,4 +1,4 @@
-package com.mrp.dto;
+package com.mrp.dtos;
 
 import com.mrp.entities.Game;
 import lombok.Getter;
