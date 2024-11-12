@@ -4,6 +4,7 @@ import com.mrp.dtos.GameDTO;
 import com.mrp.dtos.GameMinDTO;
 import com.mrp.entities.Game;
 import com.mrp.exceptions.GameNotFoundException;
+import com.mrp.projections.GameMinProjection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.mrp.repositories.GameRepository;
@@ -21,7 +22,9 @@ public class GameService {
     @Transactional(readOnly = true)
     public GameDTO findById(Long id) {
         Game game = gameRepository.findById(id)
-                .orElseThrow(() -> new GameNotFoundException("Jogo não encontrado com ID: " + id));
+                .orElseThrow(() -> new GameNotFoundException(
+                        "Jogo não encontrado com ID: " + id)
+                );
         return new GameDTO(game);
     }
 
@@ -29,6 +32,13 @@ public class GameService {
     public List<GameMinDTO> findAll() {
         List<Game> result = gameRepository.findAll();
         if (result.isEmpty()) throw new GameNotFoundException("Nenhum jogo encontrado");
+        return result.stream().map(GameMinDTO::new).toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<GameMinDTO> findByList(Long listId) {
+        List<GameMinProjection> result = gameRepository.searchByList(listId);
+        if (result.isEmpty()) throw new GameNotFoundException("Nenhuma lista de jogo encontrado");
         return result.stream().map(GameMinDTO::new).toList();
     }
 

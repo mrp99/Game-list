@@ -1,8 +1,10 @@
 package com.mrp.controllers;
 
 import com.mrp.dtos.GameListDTO;
+import com.mrp.dtos.GameMinDTO;
 import com.mrp.exceptions.GameNotFoundException;
 import com.mrp.services.GameListService;
+import com.mrp.services.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -16,9 +18,17 @@ public class GameListController {
     @Autowired
     private GameListService gameListService;
 
+    @Autowired
+    private GameService gameService;
+
     @GetMapping
     public List<GameListDTO> findAll() {
         return gameListService.findAll();
+    }
+
+    @GetMapping(value = "/{listId}/games")
+    public List<GameMinDTO> findByList(@PathVariable Long listId) {
+        return gameService.findByList(listId);
     }
 
     @ExceptionHandler(GameNotFoundException.class)

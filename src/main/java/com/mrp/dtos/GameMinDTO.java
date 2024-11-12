@@ -1,10 +1,10 @@
 package com.mrp.dtos;
 
 import com.mrp.entities.Game;
+import com.mrp.projections.GameMinProjection;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Getter
 @NoArgsConstructor
 public class GameMinDTO {
 
@@ -14,12 +14,39 @@ public class GameMinDTO {
     private String imgUrl;
     private String shortDescription;
 
-    public GameMinDTO(Game game) {
-        id = game.getId();
-        title = game.getTitle();
-        year = game.getYear();
-        imgUrl = game.getImgUrl();
-        shortDescription = game.getShortDescription();
+    public GameMinDTO(Game entity) {
+        id = entity.getId();
+        title = entity.getTitle();
+        year = entity.getYear();
+        imgUrl = entity.getImgUrl();
+        shortDescription = entity.getShortDescription();
     }
 
+    public GameMinDTO(GameMinProjection projection) {
+        id = projection.getId();
+        title = projection.getTitle();
+        year = projection.getYear();
+        imgUrl = projection.getImgUrl();
+        shortDescription = projection.getShortDescription();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getShortDescription() {
+        return shortDescription;
+    }
+
+    public Integer getYear() {
+        return year;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
 }
