@@ -2,6 +2,7 @@ package com.mrp.controllers;
 
 import com.mrp.dtos.GameListDTO;
 import com.mrp.dtos.GameMinDTO;
+import com.mrp.dtos.ReplacementDTO;
 import com.mrp.exceptions.GameNotFoundException;
 import com.mrp.services.GameListService;
 import com.mrp.services.GameService;
@@ -29,6 +30,11 @@ public class GameListController {
     @GetMapping(value = "/{listId}/games")
     public List<GameMinDTO> findByList(@PathVariable Long listId) {
         return gameService.findByList(listId);
+    }
+
+    @PostMapping(value = "/{listId}/replacement")
+    public void move(@PathVariable Long listId, @RequestBody ReplacementDTO body) {
+        gameListService.move(listId, body.getSourceIndex(), body.getDestinationIndex());
     }
 
     @ExceptionHandler(GameNotFoundException.class)
